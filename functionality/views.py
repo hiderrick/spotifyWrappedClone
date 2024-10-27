@@ -1,8 +1,12 @@
 from collections import Counter
 from datetime import datetime, timedelta
-
 from django.contrib.sites import requests
 from django.http import JsonResponse
+from django.shortcuts import render
+from functionality.forms import ContactForm
+from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib import messages
 
 
 def get_User_Data(access_token):
@@ -71,3 +75,22 @@ def get_total_minutes_listened(headers):
 
     total_minutes = total_ms / (1000 * 60)  # Convert milliseconds to minutes
     return round(total_minutes)
+
+def contact_form(request):
+    form = ContactForm()
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = f'Message from {form.cleaned_data["name"]}'
+            message = form.cleaned_data['message']
+            sender = "spotifyWrappedClone@gmail.com"
+            recipient = ["spotifyWrappedClone@gmail.com"]
+
+            try:
+                send_mail(subject, message, sender, recipient, fail_silently=True)
+                messages.success(request, "Success! Message sent.")
+                form = ContactForm()  # Reset the form to clear the fields
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+
+    return render(request, 'functionality/development_process.html', {'form': form})

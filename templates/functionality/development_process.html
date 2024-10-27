@@ -1,0 +1,96 @@
+{% load static %}
+
+<style>
+    .container {
+        margin-top: 200px;  
+        padding-top: 15px;
+    }
+    
+    .form-group input[type="text"],
+    .form-group textarea {
+        width: 100%;
+    }
+    
+    .developer {
+        margin-bottom: 20px;
+    }
+
+    .developer h4 {
+        margin-bottom: 5px;
+        font-size: 1.2em;
+        color: #1DB954;
+    }
+
+    .developer p {
+        margin: 0;
+        color: #555;
+        font-size: 0.95em;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Process</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Our Team</h2>
+        
+        <!-- our bios -->
+        <div class="developer">
+            <h4>Derrick Chen</h4>
+            <p>Derrick focused on frontend development. He enjoys tackling complex challenges and finding efficient solutions.</p>
+        </div>
+
+        <div class="developer">
+            <h4>Joseph Cloer</h4>
+            <p>Joseph specializes in frontend design and user experience, ensuring the application is visually appealing and user-friendly.</p>
+        </div>
+
+        <div class="developer">
+            <h4>Simon Eyasu</h4>
+            <p>Simon is our scrum master...</p>
+        </div>
+
+        <div class="developer">
+            <h4>Minseo Kim</h4>
+            <p>Minseo worked as a fullstack developer on quality assurance to ensure smooth functionality across all features.</p>
+        </div>
+
+        <div class="developer">
+            <h4>Sachith Koduri</h4>
+            <p>Sachith as out frontend engineer, worked on all aspects of the project including frontend and backend.</p>
+        </div>
+
+        <!-- contact form -->
+        <h3>Send Us Your Feedback</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <!-- loops through fields for forms -->
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+        
+            <!-- loops though forms and shows the fields -->
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.errors }}
+                    <label>{{ field.label_tag }}</label>
+                    <p>{{ field }}</p>
+                </div>
+            {% endfor %}
+        
+            <div class="form-actions">
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+    </div>
+</body>
+</html>

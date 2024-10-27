@@ -11,15 +11,17 @@
     <div class="container">
         <h2>Your Profile</h2>
 
-        <!-- displays user info -->
+        <!-- Display user information -->
         <ul class="user-info">
             <li><strong>Username:</strong> {{ user.username }}</li>
             <li><strong>Email:</strong> {{ user.email }}</li>
         </ul>
 
+        <!-- Button to Development Process page -->
+        <a href="{% url 'development_process' %}" class="btn btn-primary">Development Process</a>
+
+        <!-- Link to delete account or other features -->
         <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete My Account</a>
     </div>
 </body>
 </html>
-
-

@@ -1,7 +1,3 @@
-
-from urllib import request
-
-import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, get_user_model
 

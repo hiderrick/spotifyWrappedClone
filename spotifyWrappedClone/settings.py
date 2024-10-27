@@ -16,24 +16,25 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # sends to terminal (testing purposes)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # sends to terminal (testing purposes)
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # sends real email
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend' # this is for "contact developers"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_FROM_DEFAULT = 'derrickchen0201@gmail.com' # i will create a dedicated email address later for this project
+EMAIL_FROM_DEFAULT = 'spotifyWrappedClone@gmail.com' # no clue if this works or not
 
 
-load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 redirect_uri = ("http://localhost:8000/")
 token_url = ("https://accounts.spotify.com/api/token")
 api_url = ("https://api.spotify.com/v1/")
 
-
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,8 +80,7 @@ ROOT_URLCONF = 'spotifyWrappedClone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'functionality/../templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,7 +144,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'functionality/static',
 ]
 
 # Default primary key field type
