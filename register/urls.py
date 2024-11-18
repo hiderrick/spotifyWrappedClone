@@ -30,3 +30,4 @@ urlpatterns = [
     path('callback/', views.spotify_callback, name='spotify_callback'),
     path('fetch_wrap_data/', views.fetch_wrap_data, name='fetch_wrap_data'),
     ]
+
