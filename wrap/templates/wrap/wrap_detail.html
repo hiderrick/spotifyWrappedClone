@@ -139,6 +139,40 @@
         <h2>Total Minutes Listened</h2>
         <p>{{ total_mins_listened }} minutes</p>
 
+        {% if wrap.theme == 'duo' %}
+        	<h2>Friend's Top Tracks</h2>
+            <ul>
+                {% for track in duo_user_data.top_tracks %}
+                    <li>
+                        {{ track }}
+                    </li>
+                {% empty %}
+                    <li>No tracks available for this wrap.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Friend's Top Artists</h2>
+            <ul>
+                {% for artist in duo_user_data.top_artists %}
+                    <li>{{ artist }}</li>
+                {% empty %}
+                    <li>No artists available for this wrap.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Friend's Top Genres</h2>
+            <ul>
+                {% for genre in duo_user_data.top_genres %}
+                    <li>{{ genre.genre }} (Count: {{ genre.count }})</li>
+                {% empty %}
+                    <li>No genres available for this wrap.</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Friend's Total Minutes Listened</h2>
+            <p>{{ duo_user_data.total_mins_listened }} minutes</p>
+        {% endif %}
+
 
         <div class="action-buttons">
             <a href="{% url 'view_wraps' %}">Back to List</a>
