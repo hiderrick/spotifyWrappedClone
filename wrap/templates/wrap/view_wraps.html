@@ -202,7 +202,7 @@
                     <div class="wrap-item">
                         <div class="wrap-left">
                             <strong><a href="{% url 'your_wrap' wrap.wrap_id %}">{{ wrap.name }}</a></strong><br>
-                            <span class="wrap-meta">Year: {{ wrap.year }} | Theme: {{ wrap.theme|default:"N/A" }}</span>
+                            <span class="wrap-meta">Year: {{ wrap.year }} | Theme: {{ wrap.theme|default:"N/A"|title }} <br> Time Length: {{ wrap.time_range|title }}</span>
                             <br>
                             <a href="{% url 'wrap_detail' wrap.wrap_id %}" class="detail-link">View Details</a>
                             <a href="{% url 'analyze_wrap' wrap.wrap_id %}" class="detail-link">| Analyze Wrap</a>
