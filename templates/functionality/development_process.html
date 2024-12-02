@@ -157,23 +157,7 @@
     
     <!-- Contact Form -->
     <h3>Send Us Your Feedback</h3>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            <div class="form-group">
-                {{ field.errors }}
-                <label>{{ field.label_tag }}</label>
-                <p>{{ field }}</p>
-            </div>
-        {% endfor %}
-        <div class="form-actions">
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdRXN7-Ta7PydHLgueYC7LfU41pMlsrN_wxCoHukFcFiov1Kg/viewform?embedded=true" width="640" height="584" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
     <!-- Navigation Buttons -->
     <div class="button-group">

@@ -149,8 +149,16 @@ def wrap_detail(request, wrap_id):
             'error': f"Failed to parse wrap data: {e}"
         })
 
+    time_range_mapping = {
+        'small': 'short_term',
+        'medium': 'medium_term',
+        'large': 'long_term'
+    }
+
+    term = time_range_mapping.get(wrap.time_range)
+
     try:
-        user_data = get_User_Data(access_token, request.user, wrap_data.get('time_range', 'long_term'))
+        user_data = get_User_Data(access_token, request.user, term)
         print("DEBUG: User data fetched successfully:", user_data)
     except Exception as e:
         return render(request, 'wrap/wrap_detail.html', {
@@ -182,12 +190,26 @@ def wrap_detail(request, wrap_id):
     top_genres = user_data.get('top_genres', [])
     total_mins_listened = user_data.get('total_mins_listened', 0)
 
+    duo_data = None
+
+    if wrap.theme == 'duo':
+        duo_user = User.objects.get(username=wrap.duo_username)
+        duo_user_profile = UserProfile.objects.get(user=duo_user)
+        if duo_user_profile.token_expires_at is None:
+            duo_user_profile.token_expires_at = now() + timedelta(hours=1)
+            duo_user_profile.save()
+
+        refresh_spotify_token(duo_user_profile)
+        duo_access_token = duo_user_profile.access_token
+        duo_data = get_User_Data(duo_access_token, duo_user_profile, term)
+
     return render(request, 'wrap/wrap_detail.html', {
         'wrap': wrap,
         'top_tracks': top_tracks,
         'top_artists': top_artists,
         'top_genres': top_genres,
         'total_mins_listened': total_mins_listened,
+        'duo_user_data': duo_data,
     })
 
 '''
